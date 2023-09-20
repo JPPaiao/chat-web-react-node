@@ -1,7 +1,11 @@
 import { useState } from "react"
 
-const Channels: React.FC = () => {
-  const [chatSelect, setChatSelect] = useState("geral")
+interface Props {
+  channelSelect: string,
+  setChannelSelect: any
+}
+
+const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect }) => {
   const channelsServer: object = {
     "programação": [
       "geral",
@@ -30,13 +34,9 @@ const Channels: React.FC = () => {
     ]
   }
 
-  const handleChatSelect = (chat: string) => {
-    setChatSelect(chat)
-  }
-
   return (
-    <nav className="bg-[#2c2d31] text-zinc-400 overflow-y-scroll h-screen scrolls max-w-md w-64">
-      <div className="sticky top-0 bg-[#2c2d31] flex items-center justify-between px-5 py-2 shadow-md">
+    <nav className="bg-[#272729] text-zinc-400 overflow-y-scroll h-screen scrolls max-w-md w-80">
+      <div className="sticky top-0 bg-[#272729] flex items-center justify-between px-5 py-2 shadow-md h-12">
         <h1 className="text-white font-bold">JPLP</h1> 
         <div className="px-2 cursor-pointer">
           <div className="w-2 h-2 bg-[#2c2d31] rotate-[138deg] relative top-[2px] z-10"></div>
@@ -58,12 +58,12 @@ const Channels: React.FC = () => {
               <ul className="flex flex-col gap-2 justify-between ">
                 {
                   channelsServer[channel].map((chatChannels: string) => {
-                    const clas: string = `px-1 py-1 font-semibold ${chatSelect == chatChannels ? 'text-white' : ' '}`
+                    const clas: string = `px-1 py-1 font-semibold ${channelSelect == chatChannels ? 'text-white' : ' '}`
                     
                     return (
                       <li 
                         className="hover:bg-zinc-700 rounded w-full px-2 flex items-center gap-1 cursor-pointer"
-                        onClick={() => handleChatSelect(chatChannels)}
+                        onClick={() => setChannelSelect(chatChannels)}
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" role="img">
                           <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M5.88657 21C5.57547 21 5.3399 20.7189 5.39427 20.4126L6.00001 17H2.59511C2.28449 17 2.04905 16.7198 2.10259 16.4138L2.27759 15.4138C2.31946 15.1746 2.52722 15 2.77011 15H6.35001L7.41001 9H4.00511C3.69449 9 3.45905 8.71977 3.51259 8.41381L3.68759 7.41381C3.72946 7.17456 3.93722 7 4.18011 7H7.76001L8.39677 3.41262C8.43914 3.17391 8.64664 3 8.88907 3H9.87344C10.1845 3 10.4201 3.28107 10.3657 3.58738L9.76001 7H15.76L16.3968 3.41262C16.4391 3.17391 16.6466 3 16.8891 3H17.8734C18.1845 3 18.4201 3.28107 18.3657 3.58738L17.76 7H21.1649C21.4755 7 21.711 7.28023 21.6574 7.58619L21.4824 8.58619C21.4406 8.82544 21.2328 9 20.9899 9H17.41L16.35 15H19.7549C20.0655 15 20.301 15.2802 20.2474 15.5862L20.0724 16.5862C20.0306 16.8254 19.8228 17 19.5799 17H16L15.3632 20.5874C15.3209 20.8261 15.1134 21 14.8709 21H13.8866C13.5755 21 13.3399 20.7189 13.3943 20.4126L14 17H8.00001L7.36325 20.5874C7.32088 20.8261 7.11337 21 6.87094 21H5.88657ZM9.41045 9L8.35045 15H14.3504L15.4104 9H9.41045Z">
@@ -80,24 +80,26 @@ const Channels: React.FC = () => {
           ))
         }
       </main>
-      <footer className="sticky bottom-0 bg-[#232428]">
-        <div className="px-1 py-2 flex justify-around gap-2">
-          <div className="flex hover:bg-zinc-700 rounded py-[2px] px-1 cursor-pointer">
+      <footer className="sticky bottom-0 bg-[#232428] w-full">
+        <div className="px-1 py-2 flex justify-evenly gap-1">
+          <div className="flex hover:bg-zinc-700 rounded py-[2px] px-3 cursor-pointer">
             <div className="">
-              <img className="w-full max-w-[60px] relative right-2" src="https://logos-world.net/wp-content/uploads/2020/12/Discord-Emblem.png" alt=" "/>
-              <div className="relative left-[26px] top-1">
-                <div className="bg-[#232428] w-5 h-5 rounded-full absolute z-10 bottom-0"></div>
-                <div className="absolute z-20 bottom-[5px] left-[-2px]">
-                  <svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
-                    <mask id=":rg:">
-                      <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
-                      <rect x="12.5" y="10" width="0" height="0" rx="0" ry="0" fill="black"></rect>
-                      <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black" transform="scale(0) translate(13.125 10)" ></polygon>
-                      <circle fill="black" cx="12.5" cy="10" r="0"></circle>
-                    </mask>
-                    <rect fill="#23a55a" width="25" height="15" mask="url(#:rg:)"></rect>
-                  </svg>
-                  <rect x="22" y="22" width="10" height="10" fill="transparent" aria-hidden="true"></rect>
+              <img className="max-w-[60px] w-8 relative right-2" src="https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0" alt=" "/>
+              <div>
+                <div className="relative left-[10px] top-[4px]">
+                  <div className="bg-[#232428] w-5 h-5 rounded-full absolute z-10 bottom-0"></div>
+                  <div className="absolute z-20 bottom-[5px] left-[-2px]">
+                    <svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
+                      <mask id=":rg:">
+                        <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
+                        <rect x="12.5" y="10" width="0" height="0" rx="0" ry="0" fill="black"></rect>
+                        <polygon points="-2.16506,-2.5 2.16506,0 -2.16506,2.5" fill="black" transform="scale(0) translate(13.125 10)" ></polygon>
+                        <circle fill="black" cx="12.5" cy="10" r="0"></circle>
+                      </mask>
+                      <rect fill="#23a55a" width="25" height="15" mask="url(#:rg:)"></rect>
+                    </svg>
+                    <rect x="22" y="22" width="10" height="10" fill="transparent" aria-hidden="true"></rect>
+                  </div>
                 </div>
               </div>
             </div> 
