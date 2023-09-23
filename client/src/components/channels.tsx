@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 interface Props {
   channelSelect: string,
   setChannelSelect: any
@@ -84,11 +82,11 @@ const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect }) => {
         <div className="px-1 py-2 flex justify-evenly gap-1">
           <div className="flex hover:bg-zinc-700 rounded py-[2px] px-3 cursor-pointer">
             <div className="">
-              <img className="max-w-[60px] w-8 relative right-2" src="https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0" alt=" "/>
+              <img className="max-w-[60px] w-8 relative right-2 top-[2px]" src="https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0" alt=" "/>
               <div>
-                <div className="relative left-[10px] top-[4px]">
-                  <div className="bg-[#232428] w-5 h-5 rounded-full absolute z-10 bottom-0"></div>
-                  <div className="absolute z-20 bottom-[5px] left-[-2px]">
+                <div className="relative left-[10px] top-[6px]">
+                  <div className="bg-[#232428] w-4 h-4 rounded-full absolute z-10 bottom-0"></div>
+                  <div className="absolute z-20 bottom-[3px] left-[-4px]">
                     <svg x="14.5" y="17" width="25" height="15" viewBox="0 0 25 15">
                       <mask id=":rg:">
                         <rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>
