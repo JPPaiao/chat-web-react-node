@@ -2,25 +2,30 @@ import { User } from "./profiles"
 
 const SideBarChats: React.FC = () => {
   interface Profiles {
+    id: number,
     img: string,
     messagens: number
   }
   
   const profilesList: Array<Profiles> = [
     {
-      img: "https://avatars.githubusercontent.com/u/2254731?v=4",
+      id: 0,
+      img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
       messagens: 17  
     },
     {
-      img: "https://avatars.githubusercontent.com/u/2254731?v=4",
+      id: 1,
+      img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
       messagens: 10  
     },
     {
-      img: "https://avatars.githubusercontent.com/u/2254731?v=4",
+      id: 2,
+      img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
       messagens: 3  
     },
     {
-      img: "https://avatars.githubusercontent.com/u/2254731?v=4",
+      id: 3,
+      img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
       messagens: 8  
     },
   ]
@@ -30,7 +35,7 @@ const SideBarChats: React.FC = () => {
         <ul className="py-4 px-2">
             {
               profilesList.map((profileUser: Profiles) => (
-                <User profile={profileUser} />
+                <User key={profileUser.id} profile={profileUser} />
               ))
             }
         </ul>
