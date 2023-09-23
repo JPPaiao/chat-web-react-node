@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 interface Messagem {
   img: string,
   name: string,
@@ -7,9 +9,29 @@ interface Messagem {
 interface Props {
   channel: string,
   listMessage: Array<Messagem>
+  setLisChat: any
 }
 
-const Chats: React.FC<Props> = ({ channel, listMessage }) => {
+const Chats: React.FC<Props> = ({ channel, listMessage, setLisChat }) => {
+  const [inputMessage, setInputMessage] = useState<string>("")
+
+  function handleNewMessage(e: any) {
+    e.preventDefault()
+
+    const userMessage: Messagem = {
+      img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
+      name: "Test",
+      text: inputMessage
+    }
+    
+    setLisChat([...listMessage, userMessage])
+    setInputMessage("")
+  }
+
+  function handleMessage(e: any) {
+    setInputMessage(e.target.value)
+  }
+
   return (
     <div className="text-zinc-400 w-full bg-[#323338] h-screen scrolls overflow-y-scroll">
         <header className="h-12 sticky top-0 bg-[#323338] flex gap-4 items-center px-7 py-2 shadow-md font-bold w-full">
@@ -21,11 +43,14 @@ const Chats: React.FC<Props> = ({ channel, listMessage }) => {
           </div>
           <h1 className="text-white">{channel.toUpperCase()}</h1>
         </header>
-        <section>
+        <section className="flex flex-col justify-between">
           <div className="py-3 flex flex-col gap-5 ">
             {
-              listMessage.map(message => (
-                <div className="flex gap-4 items-center px-7 py-1 hover:bg-[#2f3035] w-full">
+              listMessage.map((message, index) => (
+                <div
+                  key={index} 
+                  className="flex gap-4 items-center px-7 py-1 hover:bg-[#2f3035] w-full"
+                >
                   <div className="w-12">
                     <img src={message.img}
                       className="" 
@@ -39,9 +64,9 @@ const Chats: React.FC<Props> = ({ channel, listMessage }) => {
               ))
             }
           </div>
-          <form className="w-full bg-[#323338]">
-            <div className="px-7 py-2 fixed bottom-0">
-              <input type="text" name="message" placeholder="Digite o texto" 
+          <form onSubmit={handleNewMessage} className="bg-[#323338]">
+            <div className="px-7 py-2  bottom-0">
+              <input onChange={handleMessage} type="text" name="message" placeholder="Digite o texto" 
                 className="bg-[#393a3f] text-white rounded px-5 py-2 outline-none w-full" 
               />
             </div>
