@@ -66,7 +66,13 @@ const Chats: React.FC<Props> = ({ channel, listMessage, setLisChat }) => {
           </div>
           <form onSubmit={handleNewMessage} className="bg-[#323338]">
             <div className="px-7 py-2  bottom-0">
-              <input onChange={handleMessage} type="text" name="message" placeholder="Digite o texto" 
+              <input 
+                required
+                onChange={handleMessage} 
+                value={inputMessage}
+                type="text" 
+                name="message" 
+                placeholder="Digite o texto" 
                 className="bg-[#393a3f] text-white rounded px-5 py-2 outline-none w-full" 
               />
             </div>
