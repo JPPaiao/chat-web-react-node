@@ -2,6 +2,7 @@ import { SideBarChats } from "./components/sideBarChats"
 import { Chats } from "./components/chat"
 import { Channels } from "./components/channels"
 import { useState } from "react"
+import io from "socket.io-client"
 
 interface Messagem {
   img: string,
