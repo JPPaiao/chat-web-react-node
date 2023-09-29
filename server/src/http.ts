@@ -1,3 +1,9 @@
+import express from "express"
 import http from "http"
-import { Socket } from "socket.io"
-import express  from "express"
+import { Server } from "socket.io"
+
+const app = express()
+const serverHttp = http.createServer(app)
+const io = new Server(serverHttp, {cors :{origin: "http://localhost:5173"}})
+
+export { serverHttp, io, app }

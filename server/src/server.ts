@@ -1,9 +1,4 @@
-import express from "express"
+import { app, serverHttp } from "./http"
+import "./websocket"
 
-const app = express()
-
-app.get("/", (req, res) => {
-    res.send("Hello world")
-})
-
-app.listen(3000, () => console.log("Server run http://localhost:3000"))
+serverHttp.listen(3000, () => console.log("Server run http://localhost:3000"))
