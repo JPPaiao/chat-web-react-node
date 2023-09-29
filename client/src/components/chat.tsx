@@ -1,30 +1,29 @@
 import { useState } from "react"
+import { socket } from "../socket"
 
-interface Messagem {
+interface Message {
   img: string,
-  name: string,
   text: string
+  name?: string
 }
 
 interface Props {
   channel: string,
-  listMessage: Array<Messagem>
-  setLisChat: any
+  listMessage: Message[]
 }
 
-const Chats: React.FC<Props> = ({ channel, listMessage, setLisChat }) => {
+const Chats: React.FC<Props> = ({ channel, listMessage }) => {
   const [inputMessage, setInputMessage] = useState<string>("")
 
-  function handleNewMessage(e: any) {
+  function handleNewMessage(e: any): void {
     e.preventDefault()
 
-    const userMessage: Messagem = {
+    const userMessage: Message = {
       img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
-      name: "Test",
       text: inputMessage
     }
     
-    setLisChat([...listMessage, userMessage])
+    socket.emit("msg", userMessage)
     setInputMessage("")
   }
 
