@@ -9,10 +9,11 @@ interface Message {
 
 interface Props {
   channel: string,
-  listMessage: Message[]
+  listMessage: Message[],
+  user: string
 }
 
-const Chats: React.FC<Props> = ({ channel, listMessage }) => {
+const Chats: React.FC<Props> = ({ channel, listMessage, user }) => {
   const [inputMessage, setInputMessage] = useState<string>("")
 
   function handleNewMessage(e: any): void {
@@ -45,22 +46,26 @@ const Chats: React.FC<Props> = ({ channel, listMessage }) => {
         <section className="flex flex-col justify-between">
           <div className="py-3 flex flex-col gap-5 ">
             {
-              listMessage.map((message, index) => (
-                <div
-                  key={index} 
-                  className="flex gap-4 items-center px-7 py-1 hover:bg-[#2f3035] w-full"
-                >
-                  <div className="w-12">
-                    <img src={message.img}
-                      className="" 
-                    />
+              listMessage.map((message, index) => {
+                const clas: string = `font-semibold ${ user === message.name ? ' text-slate-200 ' : ' text-text-blue-900 ' }` 
+                
+                return (
+                  <div
+                    key={index} 
+                    className="flex gap-4 items-center px-7 py-1 hover:bg-[#2f3035] w-full"
+                  >
+                    <div className="w-12">
+                      <img src={message.img}
+                        className="" 
+                      />
+                    </div>
+                    <div>
+                      <p className={clas} >{message.name}</p>
+                      <p>{message.text}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-slate-400">{message.name}</p>
-                    <p>{message.text}</p>
-                  </div>
-                </div>
-              ))
+                )}
+              )
             }
           </div>
           <form onSubmit={handleNewMessage} className="bg-[#323338]">

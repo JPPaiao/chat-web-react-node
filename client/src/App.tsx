@@ -32,7 +32,7 @@ function App() {
       <SideBarChats />
       <div className="flex w-full">
         <Channels channelSelect={chatSelect} setChannelSelect={setChatSelect} />
-        <Chats channel={chatSelect} listMessage={lisChat} />
+        <Chats channel={chatSelect} listMessage={lisChat} user={user} />
       </div>
     </div>
   )
