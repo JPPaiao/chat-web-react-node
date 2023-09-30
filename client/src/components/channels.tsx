@@ -1,9 +1,10 @@
 interface Props {
   channelSelect: string,
-  setChannelSelect: any
+  setChannelSelect: any,
+  user: string
 }
 
-const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect }) => {
+const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect, user }) => {
   const channelsServer: object = {
     "programação": [
       "geral",
@@ -104,7 +105,7 @@ const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect }) => {
               </div>
             </div> 
             <div className="flex flex-col">
-              <h1 className="font-bold text-sm text-white">JPLP2003</h1>
+              <h1 className="font-bold text-sm text-white">{user.toLocaleUpperCase()}</h1>
               <span className="text-xs">Disponível</span>
             </div>
           </div>

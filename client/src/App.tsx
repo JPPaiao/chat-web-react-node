@@ -31,7 +31,7 @@ function App() {
     <div className="flex w-screen h-screen">
       <SideBarChats />
       <div className="flex w-full">
-        <Channels channelSelect={chatSelect} setChannelSelect={setChatSelect} />
+        <Channels channelSelect={chatSelect} setChannelSelect={setChatSelect} user={user} />
         <Chats channel={chatSelect} listMessage={lisChat} user={user} />
       </div>
     </div>
