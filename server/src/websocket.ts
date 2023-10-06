@@ -13,73 +13,38 @@ interface RoomUser {
 }
 
 interface Rooms {
-  [key: string]: {
-    users: RoomUser[],
-    messagens: Message[]
-  }
+  [key: string]: Message[]
 }
 
 const users: RoomUser[] = []
 const rooms: Rooms = {}
 
-// const r = {
-//   geral: {
-//     users: [],
-//     messagens: []
-//   },
-//   git: {
-//     users: [],
-//     messagens: []
-//   },
-// }
-
-// function delUserRoom(room: string, id: string) {
-//   Object.keys(rooms).map((r) => {
-//     console.log(rooms[r])
-    
-//     if (r != room) {
-//       console.log(" ")
-//       console.log(r)
-      
-//       // const remove = rooms[r].users.filter(user => user.socket_id !== id)
-//       // console.log(remove)
-//     }
-//   })
-// }
-
-function setUserRoom(room: string, id: string) {
-  const userInRoom = users.filter(user => id === user.socket_id)
-  const userId = rooms[room].users.find(user => user.socket_id === userInRoom[0].socket_id)
-
-  if (!userId) rooms[room].users.push(userInRoom[0])
+function setMessage(room: string, data: Message) {
+  rooms[room].push(data)
 }
 
 function setRoom(newRoom: string) {
-  rooms[newRoom] = {
-    users: [],
-    messagens: []
-  }
+  rooms[newRoom] = []
 }
 
 io.on('connection', socket => {
-  socket.on('msg', (msg: Message): void => {
+  socket.on('msg', (data): void => {
     const newMessage: Message = {
       id: socket.data.id,
       username: socket.data.username,
-      img: msg.img,
-      text: msg.text
+      img: data.img,
+      text: data.text
     }
 
-    io.emit('msgs', newMessage)
+    setMessage(data.room, newMessage)
+    io.to(data.room).emit('msgs', newMessage)
   })
   
-  socket.on('select_room', (data) => {
-    const dataRoom: string = data.room
+  socket.on('select_room', (room: string) => {
+    socket.join(room)
+    if (!rooms.hasOwnProperty(room)) setRoom(room)
 
-    socket.join(dataRoom)
-    if (!rooms.hasOwnProperty(dataRoom)) setRoom(dataRoom)
-    // delUserRoom(dataRoom, data.socket_id)
-    setUserRoom(dataRoom, data.socket_id)
+    io.to(room).emit("set_messagens_room", rooms[room])
   })
 
   socket.on('set_username', (username: string) => {
