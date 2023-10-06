@@ -1,11 +1,17 @@
+import { socket } from "../socket"
+
+interface Rooms {
+  [key: string]: string[]
+}
+
 interface Props {
   channelSelect: string,
   setChannelSelect: any,
-  user: string
+  user: string,
 }
 
 const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect, user }) => {
-  const channelsServer: object = {
+  const channelsServer: Rooms = {
     "programação": [
       "geral",
       "git",
@@ -32,10 +38,16 @@ const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect, user }) =>
     ]
   }
 
+  function handleSelectRoom(room: string) {
+    socket.emit("select_room", room)
+
+    setChannelSelect(room)
+  }
+
   return (
     <nav className="bg-[#272729] text-zinc-400 overflow-y-scroll h-screen scrolls max-w-md w-80">
       <div className="sticky top-0 bg-[#272729] flex items-center justify-between px-5 py-2 shadow-md h-12">
-        <h1 className="text-white font-bold">JPLP</h1> 
+        <h1 className="text-white font-bold">{user.toLocaleUpperCase()}</h1> 
         <div className="px-2 cursor-pointer">
           <div className="w-2 h-2 bg-[#2c2d31] rotate-[138deg] relative top-[2px] z-10"></div>
           <div className="w-2 h-2 bg-[#cacbcf] rotate-[138deg] relative bottom-1 "></div>
@@ -63,7 +75,7 @@ const Channels: React.FC<Props> = ({ channelSelect, setChannelSelect, user }) =>
                     return (
                       <li 
                         className="hover:bg-zinc-700 rounded w-full px-2 flex items-center gap-1 cursor-pointer"
-                        onClick={() => setChannelSelect(chatChannels)}
+                        onClick={() => handleSelectRoom(chatChannels)}
                         key={chatChannels}
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" role="img">
