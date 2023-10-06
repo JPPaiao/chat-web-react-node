@@ -31,7 +31,7 @@ const SideBarChats: React.FC = () => {
   ]
 
   return (
-    <nav className="bg-[#1e1f23] h-screen scrolls">
+    <nav className="bg-[#1e1f23] h-screen scrolls hidden md:block">
         <ul className="py-4 px-2">
             {
               profilesList.map((profileUser: Profiles) => (

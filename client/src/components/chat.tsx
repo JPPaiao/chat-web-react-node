@@ -4,7 +4,8 @@ import { socket } from "../socket"
 interface Message {
   img: string,
   text: string
-  name?: string
+  username?: string
+  room?: string
 }
 
 interface Props {
@@ -21,7 +22,8 @@ const Chats: React.FC<Props> = ({ channel, listMessage, user }) => {
 
     const userMessage: Message = {
       img: "https://th.bing.com/th/id/R.01b1e436c03e167d3b2b466f75c184a1?rik=CWHFzJtI7PjBdg&pid=ImgRaw&r=0",
-      text: inputMessage
+      text: inputMessage,
+      room: channel 
     }
     
     socket.emit("msg", userMessage)
@@ -47,7 +49,7 @@ const Chats: React.FC<Props> = ({ channel, listMessage, user }) => {
           <div className="py-3 flex flex-col gap-5 ">
             {
               listMessage.map((message, index) => {
-                const clas: string = `font-semibold ${ user === message.name ? ' text-slate-200 ' : ' text-text-blue-900 ' }` 
+                const clas: string = `font-semibold ${ user === message.username ? ' text-slate-200 ' : ' text-text-blue-900 ' }` 
                 
                 return (
                   <div
@@ -60,7 +62,7 @@ const Chats: React.FC<Props> = ({ channel, listMessage, user }) => {
                       />
                     </div>
                     <div>
-                      <p className={clas} >{message.name}</p>
+                      <p className={clas} >{message.username}</p>
                       <p>{message.text}</p>
                     </div>
                   </div>

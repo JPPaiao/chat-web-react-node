@@ -13,9 +13,26 @@ interface Message {
 }
 
 function App() {
+  const [userId, setUserId] = useState<string | null>(null)
   const [user, setUser] = useState<string | null>(null)
   const [chatSelect, setChatSelect] = useState<string>("geral")
-  const [lisChat, setLisChat] = useState<Array<Message>>([])
+  const [lisChat, setLisChat] = useState<Message[]>([])
+
+  useEffect((): any => {
+    socket.on("user_id", (id: string) => {
+      setUserId(id)
+    })
+  
+    return () => socket.off("user_id")
+  }, [socket])
+
+  useEffect((): any => {
+    socket.on("set_messagens_room", (msgs: Message[]) => {
+      setLisChat(msgs)
+    })
+
+    return () => socket.off("msgs")
+  }, [socket])
 
   useEffect((): any => {
     socket.on("msgs", (msgs: Message) => {
@@ -23,7 +40,7 @@ function App() {
     })
 
     return () => socket.off("msgs")
-  }, [lisChat])
+  }, [socket])
 
   return (user == null) ? (
     <Home setUser={setUser}/>
