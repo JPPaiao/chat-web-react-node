@@ -20,6 +20,7 @@ const users: RoomUser[] = []
 const rooms: Rooms = {}
 
 function setMessage(room: string, data: Message) {
+  if (!rooms.hasOwnProperty(room)) setRoom(room)
   rooms[room].push(data)
 }
 
@@ -28,6 +29,7 @@ function setRoom(newRoom: string) {
 }
 
 io.on('connection', socket => {
+  socket.join("geral")
   socket.on('msg', (data): void => {
     const newMessage: Message = {
       id: socket.data.id,
@@ -37,7 +39,7 @@ io.on('connection', socket => {
     }
 
     setMessage(data.room, newMessage)
-    io.to(data.room).emit('msgs', newMessage)
+    io.to(data.room).emit('msgs', rooms[data.room])
   })
   
   socket.on('select_room', (room: string) => {
@@ -50,8 +52,6 @@ io.on('connection', socket => {
   socket.on('set_username', (username: string) => {
     socket.data.username = username
     socket.data.id = socket.id
-
-    io.emit("user_id", socket.data.id)
 
     users.push({
       username: socket.data.username,
