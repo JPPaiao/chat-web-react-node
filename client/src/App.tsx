@@ -13,30 +13,21 @@ interface Message {
 }
 
 function App() {
-  const [userId, setUserId] = useState<string | null>(null)
   const [user, setUser] = useState<string | null>(null)
   const [chatSelect, setChatSelect] = useState<string>("geral")
   const [lisChat, setLisChat] = useState<Message[]>([])
-
-  useEffect((): any => {
-    socket.on("user_id", (id: string) => {
-      setUserId(id)
-    })
-  
-    return () => socket.off("user_id")
-  }, [socket])
 
   useEffect((): any => {
     socket.on("set_messagens_room", (msgs: Message[]) => {
       setLisChat(msgs)
     })
 
-    return () => socket.off("msgs")
+    return () => socket.off("set_messagens_room")
   }, [socket])
 
   useEffect((): any => {
-    socket.on("msgs", (msgs: Message) => {
-      setLisChat((current: Message[]) => [...current, msgs])
+    socket.on("msgs", (msgs: Message[]) => {
+      setLisChat(msgs)
     })
 
     return () => socket.off("msgs")
