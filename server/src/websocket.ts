@@ -21,7 +21,7 @@ const rooms: Rooms = {}
 
 function setMessage(room: string, data: Message) {
   if (!rooms.hasOwnProperty(room)) setRoom(room)
-  rooms[room].push(data)
+  rooms[room].unshift(data)
 }
 
 function setRoom(newRoom: string) {
