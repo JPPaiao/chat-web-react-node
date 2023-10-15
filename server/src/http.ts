@@ -7,7 +7,7 @@ const serverHttp = http.createServer(app)
 const io = new Server(serverHttp, {
 	allowEIO3: true,
 	cors: {
-		origin: "*",
+		origin: "https://master--luminous-cajeta-a0731b.netlify.app/",
 		credentials: true,
 		methods: "GET, POST",
 		allowedHeaders: ["my-custom-header"],
