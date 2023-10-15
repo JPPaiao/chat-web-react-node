@@ -5,10 +5,13 @@ import { Server } from "socket.io"
 const app = express()
 const serverHttp = http.createServer(app)
 const io = new Server(serverHttp, {
-	cors :{
+	allowEIO3: true,
+	cors: {
 		origin: "*",
-    credentials: true
-	}
+		credentials: true,
+		methods: "GET, POST",
+		allowedHeaders: ["my-custom-header"],
+	},
 })
 
 export { serverHttp, io, app }
