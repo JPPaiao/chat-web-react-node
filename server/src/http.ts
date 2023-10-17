@@ -10,8 +10,15 @@ const io = new Server(serverHttp, {
 		origin: "https://master--luminous-cajeta-a0731b.netlify.app/",
 		credentials: true,
 		methods: "GET, POST",
-		allowedHeaders: ["my-custom-header"],
 	},
 })
+
+io.engine.on("initial_headers", (headers, req) => {
+	headers["Access-Control-Allow-Origin"] = "https://master--luminous-cajeta-a0731b.netlify.app/"
+});
+
+io.engine.on("headers", (headers, req) => {
+	headers["Access-Control-Allow-Origin"] = "https://master--luminous-cajeta-a0731b.netlify.app/"
+});
 
 export { serverHttp, io, app }
