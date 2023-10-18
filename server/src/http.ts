@@ -4,7 +4,7 @@ import { Server } from "socket.io"
 
 const app = express()
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Origin', 'https://master--luminous-cajeta-a0731b.netlify.app/')
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept-Type')
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
@@ -16,7 +16,6 @@ const io = new Server(serverHttp, {
 	cors: {
 		origin: ["https://master--luminous-cajeta-a0731b.netlify.app/"],
 		credentials: true,
-		methods: "GET, POST",
 	},
 })
 
