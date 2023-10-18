@@ -1,6 +1,8 @@
 # chat-web-react-node
 Copia do discord com chat em real time, client e server
 
+### [link do deploy](https://master--luminous-cajeta-a0731b.netlify.app/)
+
 ## Techs
 - Server
   - Node
